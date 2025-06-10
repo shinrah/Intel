@@ -18,23 +18,26 @@ pipeline {
             description: ''
         )
         choice(
-            choices: ['UAT','DEV','IT'], 
+            choices: ['UAT', 'DEV', 'IT'], 
             description: 'Choose Environemt', 
             name: 'Host'
         )
         choice(
-            choices: ['UAT','uatexternal','staging'], 
+            choices: ['UAT', 'uatexternal', 'staging'], 
             description: 'Choose Environement for build', 
             name: 'Denv'
         )
     }
 
     stages {
-        stage('Dummy') {
+        stage('print env and mode') {
             steps {
-                echo "Pipeline started"
+                script {
+                    env.Host = sh(returnStdout: true, script: "echo ${params.Host}").trim()
+                    env.Mode = sh(returnStdout: true, script: "echo ${params.mode}").trim()
+                    env.Deployment_Method = sh(returnStdout: true, script: "echo ${params.Deployment_Method}").trim().split().collect { it as String }
+                }
             }
         }
     }
 }
-
