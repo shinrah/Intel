@@ -76,7 +76,9 @@ pipeline {
                 sh "mkdir -p \"$WORKSPACE/RAHUL-JAVA\""
 
                 echo "############################ Checking out code from Capex-central JAVA Repository ########################"
-                checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_JAVA]], userRemoteConfigs: [[url: "https://github.com/shinrah/JAVA-Application-.git", relativeTargetDir: 'RAHUL-JAVA']]])
+                dir("$WORKSPACE/RAHUL-JAVA") {
+                    checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_JAVA]], userRemoteConfigs: [[url: "https://github.com/shinrah/JAVA-Application-.git"]]])
+                }
             }
         }
     }
