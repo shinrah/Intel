@@ -12,6 +12,21 @@ pipeline {
             name: 'Banch_Name_for_UI',
             description: ''
         )
+        string(
+            defaultValue: 'central-data',
+            name: 'Branch_Name_For_JAVA',
+            description: ''
+        )
+        choice(
+            choices: ['UAT','DEV','IT'], 
+            description: 'Choose Environemt', 
+            name: 'Host'
+        )
+        choice(
+            choices: ['UAT','uatexternal','staging'], 
+            description: 'Choose Environement for build', 
+            name: 'Denv'
+        )
     }
 
     stages {
@@ -22,3 +37,4 @@ pipeline {
         }
     }
 }
+
