@@ -4,39 +4,62 @@ pipeline {
     parameters { 
         choice(
             choices: ['Deploy', 'stop', 'start', 'restart'], 
-            description: 'choose mode for depoloyment and managing the app', 
+            description: 'Choose mode for deployment and managing the app', 
             name: 'mode'
         )
         string(
-            defaultValue: 'UAT',
-            name: 'Banch_Name_for_UI',
-            description: ''
+            defaultValue: 'main',
+            name: 'Branch_Name_For_UI',
+            description: 'Branch name for UI'
         )
         string(
             defaultValue: 'central-data',
             name: 'Branch_Name_For_JAVA',
-            description: ''
+            description: 'Branch name for Java'
         )
         choice(
             choices: ['UAT', 'DEV', 'IT'], 
-            description: 'Choose Environemt', 
+            description: 'Choose Environment', 
             name: 'Host'
         )
         choice(
             choices: ['UAT', 'uatexternal', 'staging'], 
-            description: 'Choose Environement for build', 
+            description: 'Choose Environment for build', 
             name: 'Denv'
         )
     }
 
     stages {
-        stage('print env and mode') {
+        stage('Print Environment and Mode') {
             steps {
                 script {
                     env.Host = sh(returnStdout: true, script: "echo ${params.Host}").trim()
                     env.Mode = sh(returnStdout: true, script: "echo ${params.mode}").trim()
-                    env.Deployment_Method = sh(returnStdout: true, script: "echo ${params.Deployment_Method}").trim().split().collect { it as String }
                 }
+            }
+        }
+
+        stage("Building App") {
+            steps {
+                script {
+                    if (params.mode == "Deploy") {
+                        def giturl = 'https://github.com/shinrah/JAVA-Application-.git'
+                        echo "Using Git URL: ${giturl}"
+                    }
+                }
+            }
+        }
+
+        stage('Clean up') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Preparation and Git Checkout for UI') {
+            steps {
+                echo "Checking out code from source repository"
+                checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_UI]], userRemoteConfigs: [[url: "https://github.com/shinrah/UI-Application.git"]]])
             }
         }
     }
