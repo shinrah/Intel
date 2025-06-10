@@ -69,5 +69,12 @@ pipeline {
                 sh "mvn clean package"
             }
         }
+
+        stage('GIT Checkout for Capex-Central Java') {
+            steps {
+                echo "############################# Creating workspace to checkout Capex-central JAVA repo ################################"
+                sh "mkdir -p \"$WORKSPACE/JAVA\""
+            }
+        }
     }
 }
