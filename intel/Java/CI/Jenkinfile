@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    parameters { 
+        choice(
+            choices: ['Deploy', 'stop', 'start', 'restart'], 
+            description: 'choose mode for depoloyment and managing the app', 
+            name: 'mode'
+        )
+        string(
+            defaultValue: 'UAT',
+            name: 'Banch_Name_for_UI',
+            description: ''
+        )
+    }
+}
