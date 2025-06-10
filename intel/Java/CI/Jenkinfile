@@ -13,4 +13,12 @@ pipeline {
             description: ''
         )
     }
+
+    stages {
+        stage('Dummy') {
+            steps {
+                echo "Pipeline started"
+            }
+        }
+    }
 }
