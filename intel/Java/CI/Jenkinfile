@@ -44,7 +44,7 @@ pipeline {
                 script {
                     if (params.mode == 'Deploy') {
                         def giturl = 'https://github.com/shinrah/JAVA-Application-.git'
-                        echo "Using Git URL: ${giturl}"
+                        def gitjava = 'https://github.com/shinrah/JAVA-Application-.git'
                     }
                 }
             }
@@ -77,7 +77,7 @@ pipeline {
 
                 echo "############################ Checking out code from Capex-central JAVA Repository ########################"
                 dir("$WORKSPACE/RAHUL-JAVA") {
-                    checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_JAVA]], userRemoteConfigs: [[url: "https://github.com/shinrah/JAVA-Application-.git"]]])
+                    checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_JAVA]], userRemoteConfigs: [[url: "$gitjava"]]])
                 }
             }
         }
