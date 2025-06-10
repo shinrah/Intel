@@ -59,7 +59,7 @@ pipeline {
         stage('Preparation and Git Checkout for UI') {
             steps {
                 echo "Checking out code from source repository"
-                checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_UI]], userRemoteConfigs: [[url: "https://github.com/shinrah/UI-Application.git"]]])
+                checkout([$class: 'GitSCM', branches: [[name: params.Branch_Name_For_UI]], userRemoteConfigs: [[url: "https://github.com/shinrah/JAVA-Application-.git"]]])
             }
         }
     }
